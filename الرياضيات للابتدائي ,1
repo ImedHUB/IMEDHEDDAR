@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تعلم الرياضيات مع الأستاذ هدار عماد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Rakkas&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1B3B6F;
+    --navy-dark:#122a52;
+    --cream:#FFF8ED;
+    --paper:#FFFDF8;
+    --orange:#F2994A;
+    --orange-dark:#d97e2f;
+    --mint:#2FA88A;
+    --mint-dark:#238a70;
+    --coral:#E8574A;
+    --ink:#242021;
+    --line:#e7ddc9;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Tajawal',sans-serif;
+    min-height:100vh;
+  }
+
+  /* ===== Header ===== */
+  header{
+    background:linear-gradient(160deg,var(--navy) 0%, var(--navy-dark) 100%);
+    color:#fff;
+    padding:34px 20px 60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:"999,999";
+    position:absolute;
+    font-family:'Rakkas',serif;
+    font-size:9rem;
+    opacity:.07;
+    top:-20px;
+    left:-10px;
+    transform:rotate(-8deg);
+    white-space:nowrap;
+  }
+  header h1{
+    font-family:'Rakkas',serif;
+    font-size:2.3rem;
+    margin:0 0 8px;
+    position:relative;
+    z-index:1;
+  }
+  header p{
+    margin:0;
+    font-size:1.05rem;
+    opacity:.85;
+    position:relative;
+    z-index:1;
+  }
+  .badge-row{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:18px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+  }
+  .badge-row span{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.25);
+    padding:6px 14px;
+    border-radius:100px;
+    font-size:.85rem;
+  }
+
+  /* ===== Nav (stages) ===== */
+  nav{
+    max-width:980px;
+    margin:-30px auto 0;
+    padding:0 16px;
+    position:relative;
+    z-index:2;
+  }
+  .stage-scroller{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:10px;
+    box-shadow:0 12px 30px -18px rgba(27,59,111,.5);
+    scrollbar-width:thin;
+  }
+  .stage-btn{
+    flex:0 0 auto;
+    background:transparent;
+    border:none;
+    padding:10px 16px;
+    border-radius:11px;
+    font-family:'Tajawal',sans-serif;
+    font-weight:700;
+    font-size:.92rem;
+    color:var(--navy);
+    cursor:pointer;
+    white-space:nowrap;
+    transition:background .18s, color .18s;
+  }
+  .stage-btn:hover{background:#f1ecdd;}
+  .stage-btn.active{
+    background:var(--navy);
+    color:#fff;
+  }
+
+  /* ===== Main ===== */
+  main{
+    max-width:980px;
+    margin:26px auto 60px;
+    padding:0 16px;
+  }
+  .stage{
+    display:none;
+    animation:fadeIn .35s ease;
+  }
+  .stage.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:26px;
+    margin-bottom:20px;
+  }
+  .stage-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .stage-title .icon{
+    width:46px;height:46px;
+    border-radius:13px;
+    background:var(--orange);
+    color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.4rem;
+    flex-shrink:0;
+  }
+  .stage-title h2{
+    font-size:1.4rem;
+    margin:0;
+    color:var(--navy);
+  }
+  .stage-sub{
+    color:#6b6258;
+    margin:0 0 22px;
+    font-size:.98rem;
+    line-height:1.7;
+  }
+
+  /* ===== Place value table ===== */
+  .pv-wrap{overflow-x:auto; margin-bottom:6px;}
+  table.pv{
+    width:100%;
+    border-collapse:collapse;
+    min-width:640px;
+    text-align:center;
+  }
+  table.pv th{
+    font-size:.82rem;
+    font-weight:700;
+    padding:8px 4px 4px;
+    color:#6b6258;
+  }
+  table.pv .class-head{
+    font-size:.95rem;
+    font-weight:900;
+    color:#fff;
+    padding:10px 4px;
+  }
+  .class-head.thousands{background:var(--mint);}
+  .class-head.units{background:var(--orange);}
+  table.pv td.cell{
+    border:2px solid var(--line);
+    font-size:1.6rem;
+    font-weight:900;
+    padding:14px 6px;
+    color:var(--navy);
+    background:#fffef9;
+    border-radius:8px;
+  }
+  table.pv td.cell input{
+    width:100%;
+    border:none;
+    background:transparent;
+    text-align:center;
+    font-size:1.6rem;
+    font-weight:900;
+    color:var(--navy);
+    font-family:inherit;
+  }
+  table.pv td.cell input:focus{outline:2px solid var(--orange);}
+
+  .big-number-display{
+    text-align:center;
+    font-size:2.6rem;
+    font-weight:900;
+    color:var(--navy);
+    letter-spacing:2px;
+    margin:14px 0 20px;
+    direction:ltr;
+    font-variant-numeric:tabular-nums;
+  }
+
+  /* ===== controls ===== */
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:18px;
+  }
+  input[type=text], input[type=number]{
+    font-family:inherit;
+    font-size:1rem;
+    padding:10px 14px;
+    border:2px solid var(--line);
+    border-radius:10px;
+    background:#fffef9;
+  }
+  input:focus{outline:none; border-color:var(--orange);}
+  button.action{
+    font-family:'Tajawal',sans-serif;
+    font-weight:700;
+    font-size:.95rem;
+    background:var(--navy);
+    color:#fff;
+    border:none;
+    padding:11px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:transform .12s, background .15s;
+  }
+  button.action:hover{background:var(--navy-dark);}
+  button.action:active{transform:scale(.97);}
+  button.action.orange{background:var(--orange);}
+  button.action.orange:hover{background:var(--orange-dark);}
+  button.action.mint{background:var(--mint);}
+  button.action.mint:hover{background:var(--mint-dark);}
+  button.ghost{
+    background:transparent;
+    border:2px solid var(--line);
+    color:var(--navy);
+    font-family:inherit;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  button.ghost:hover{border-color:var(--navy);}
+
+  .feedback{
+    margin-top:12px;
+    padding:12px 16px;
+    border-radius:12px;
+    font-weight:700;
+    display:none;
+  }
+  .feedback.show{display:block; animation:fadeIn .25s ease;}
+  .feedback.ok{background:#e3f6ef; color:var(--mint-dark); border:1px solid #b9e6d6;}
+  .feedback.bad{background:#fdeceb; color:#b5392f; border:1px solid #f4c3bd;}
+
+  /* ===== exercise item ===== */
+  .exercise{
+    border-top:1px dashed var(--line);
+    padding:18px 0;
+  }
+  .exercise:first-of-type{border-top:none; padding-top:0;}
+  .ex-q{
+    font-weight:700;
+    margin-bottom:10px;
+    font-size:1.02rem;
+    color:var(--navy);
+  }
+  .options{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .opt-btn{
+    font-family:inherit;
+    font-size:.95rem;
+    font-weight:700;
+    background:#fffef9;
+    border:2px solid var(--line);
+    padding:9px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    color:var(--ink);
+  }
+  .opt-btn:hover{border-color:var(--orange);}
+  .opt-btn.correct{background:#e3f6ef; border-color:var(--mint); color:var(--mint-dark);}
+  .opt-btn.wrong{background:#fdeceb; border-color:var(--coral); color:#b5392f;}
+  .opt-btn[disabled]{cursor:default;}
+
+  /* ===== ordering drag list ===== */
+  .order-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .order-list li{
+    background:#fffef9;
+    border:2px solid var(--line);
+    border-radius:10px;
+    padding:12px 16px;
+    font-weight:900;
+    font-size:1.1rem;
+    color:var(--navy);
+    cursor:grab;
+    direction:ltr;
+    text-align:center;
+    user-select:none;
+    transition:border-color .15s, background .15s;
+  }
+  .order-list li.dragging{opacity:.4;}
+  .order-list li.drag-over{border-color:var(--orange); background:#fff3e6;}
+
+  /* ===== comparison ===== */
+  .compare-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:18px;
+    font-size:2rem;
+    font-weight:900;
+    color:var(--navy);
+    direction:ltr;
+    margin:16px 0;
+    flex-wrap:wrap;
+  }
+  .compare-row .num{background:#fffef9; border:2px solid var(--line); border-radius:12px; padding:10px 22px;}
+  .cmp-btn{
+    width:56px;height:56px;
+    border-radius:50%;
+    border:2px solid var(--line);
+    background:#fffef9;
+    font-size:1.6rem;
+    font-weight:900;
+    color:var(--navy);
+    cursor:pointer;
+  }
+  .cmp-btn:hover{border-color:var(--orange);}
+  .cmp-btn.selected{background:var(--orange); color:#fff; border-color:var(--orange);}
+
+  /* ===== decomposition ===== */
+  .decomp-line{
+    font-size:1.15rem;
+    font-weight:700;
+    direction:ltr;
+    text-align:center;
+    color:var(--navy);
+    background:#fffef9;
+    border:2px dashed var(--line);
+    border-radius:12px;
+    padding:16px;
+    margin:14px 0;
+    line-height:2;
+  }
+  .decomp-line input{
+    width:80px;
+    text-align:center;
+    margin:0 4px;
+  }
+
+  /* ===== difficulty tabs (applications) ===== */
+  .diff-tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+  }
+  .diff-tab{
+    font-family:inherit;
+    font-weight:700;
+    padding:9px 18px;
+    border-radius:100px;
+    border:2px solid var(--line);
+    background:#fffef9;
+    cursor:pointer;
+    color:var(--navy);
+  }
+  .diff-tab.active{color:#fff; border-color:transparent;}
+  .diff-tab[data-level="easy"].active{background:var(--mint);}
+  .diff-tab[data-level="medium"].active{background:var(--orange);}
+  .diff-tab[data-level="hard"].active{background:var(--coral);}
+  .diff-panel{display:none;}
+  .diff-panel.active{display:block; animation:fadeIn .3s ease;}
+
+  .progress-pill{
+    display:inline-block;
+    background:var(--navy);
+    color:#fff;
+    font-size:.8rem;
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:100px;
+    margin-bottom:14px;
+  }
+
+  .score-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#f1ecdd;
+    border-radius:12px;
+    padding:10px 16px;
+    font-weight:700;
+    color:var(--navy);
+    margin-bottom:18px;
+    width:fit-content;
+  }
+
+  .hint-box{
+    background:#fff3e6;
+    border:1px solid #f5d9b8;
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:.9rem;
+    color:#8a5a1f;
+    margin-top:10px;
+    display:none;
+  }
+  .hint-box.show{display:block;}
+
+  footer{
+    text-align:center;
+    padding:24px;
+    color:#8a8175;
+    font-size:.85rem;
+  }
+
+  @media (max-width:600px){
+    header h1{font-size:1.6rem;}
+    .stage-title h2{font-size:1.15rem;}
+    .compare-row{font-size:1.4rem;}
+    table.pv td.cell{font-size:1.15rem; padding:10px 3px;}
+    table.pv td.cell input{font-size:1.15rem;}
+    .big-number-display{font-size:1.8rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+ <h1>تعلم الرياضيات مع الأستاذ هدار عماد</h1>
+  <h2>الأعداد الأقل من 999,999</h2>
+  <p>درس تفاعلي في القراءة والكتابة والترتيب والمقارنة والتفكيك</p>
+  <div class="badge-row">
+    <span>جدول الوحدات</span>
+    <span>القراءة والكتابة</span>
+    <span>الترتيب والحصر</span>
+    <span>المقارنة</span>
+    <span>التفكيك</span>
+    <span>تطبيقات</span>
+  </div>
+</header>
+
+<nav>
+  <div class="stage-scroller" id="stageNav">
+    <button class="stage-btn active" data-stage="s1">1. جدول الوحدات</button>
+    <button class="stage-btn" data-stage="s2">2. الكتابة بالحروف</button>
+    <button class="stage-btn" data-stage="s3">3. الكتابة بالأرقام</button>
+    <button class="stage-btn" data-stage="s4">4. الترتيب</button>
+    <button class="stage-btn" data-stage="s5">5. الحصر</button>
+    <button class="stage-btn" data-stage="s6">6. المقارنة</button>
+    <button class="stage-btn" data-stage="s7">7. التفكيك</button>
+    <button class="stage-btn" data-stage="s8">8. تطبيقات</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ============ STAGE 1: جدول الوحدات ============ -->
+  <section class="stage active" id="s1">
+    <div class="card">
+      <div class="stage-title"><span class="icon">🔢</span><h2>الكتابة في جدول الوحدات</h2></div>
+      <p class="stage-sub">كل عدد أقل من 999,999 يتكوّن من فئتين: فئة الآلاف وفئة الوحدات. وكل فئة تحتوي على ثلاث مراتب: المئات، والعشرات، والآحاد. اكتب عددًا في الصندوق، ثم شاهد كيف يتوزّع في الجدول.</p>
+
+      <div class="controls">
+        <input type="number" id="pvInput" placeholder="اكتب عددًا مثل 47582" min="0" max="999999">
+        <button class="action orange" onclick="fillPlaceValueTable()">وزّع العدد في الجدول</button>
+        <button class="ghost" onclick="randomPV()">عدد عشوائي</button>
+      </div>
+
+      <div class="pv-wrap">
+        <table class="pv" id="pvTable">
+          <tr>
+            <th colspan="3" class="class-head thousands">فئة الآلاف</th>
+            <th colspan="3" class="class-head units">فئة الوحدات</th>
+          </tr>
+          <tr>
+            <th>مئات الألوف</th><th>عشرات الألوف</th><th>آحاد الألوف</th>
+            <th>المئات</th><th>العشرات</th><th>الآحاد</th>
+          </tr>
+          <tr>
+            <td class="cell" id="pv-cmi">0</td>
+            <td class="cell" id="pv-dmi">0</td>
+            <td class="cell" id="pv-umi">0</td>
+            <td class="cell" id="pv-c">0</td>
+            <td class="cell" id="pv-d">0</td>
+            <td class="cell" id="pv-u">0</td>
+          </tr>
+        </table>
+      </div>
+      <p id="pvExplain" class="stage-sub" style="margin-top:10px;"></p>
+    </div>
+
+    <div class="card">
+      <div class="stage-title"><span class="icon">✏️</span><h2>تدرّب: أكمل الجدول</h2></div>
+      <p class="stage-sub">العدد المطلوب: <strong id="pvTargetDisplay" style="color:var(--orange); font-size:1.2rem;"></strong> — اكتب كل رقم في خانته الصحيحة ثم تحقّق من إجابتك.</p>
+      <div class="pv-wrap">
+        <table class="pv">
+          <tr>
+            <th colspan="3" class="class-head thousands">فئة الآلاف</th>
+            <th colspan="3" class="class-head units">فئة الوحدات</th>
+          </tr>
+          <tr>
+            <th>مئات الألوف</th><th>عشرات الألوف</th><th>آحاد الألوف</th>
+            <th>المئات</th><th>العشرات</th><th>الآحاد</th>
+          </tr>
+          <tr>
+            <td class="cell"><input type="text" maxlength="1" id="q-cmi"></td>
+            <td class="cell"><input type="text" maxlength="1" id="q-dmi"></td>
+            <td class="cell"><input type="text" maxlength="1" id="q-umi"></td>
+            <td class="cell"><input type="text" maxlength="1" id="q-c"></td>
+            <td class="cell"><input type="text" maxlength="1" id="q-d"></td>
+            <td class="cell"><input type="text" maxlength="1" id="q-u"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="controls" style="margin-top:16px;">
+        <button class="action mint" onclick="checkPvQuiz()">تحقّق</button>
+        <button class="ghost" onclick="newPvQuiz()">عدد جديد</button>
+      </div>
+      <div class="feedback" id="pvQuizFeedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 2: الكتابة بالحروف ============ -->
+  <section class="stage" id="s2">
+    <div class="card">
+      <div class="stage-title"><span class="icon">🔤</span><h2>الكتابة بالحروف</h2></div>
+      <p class="stage-sub">نقرأ العدد فئةً فئة: أولًا فئة الآلاف، ثم فئة الوحدات، ونصل بينهما بكلمة "و" عند الحاجة.</p>
+      <div class="controls">
+        <input type="number" id="w2n-input" placeholder="اكتب عددًا مثل 3208" min="0" max="999999">
+        <button class="action orange" onclick="showWordsFromNumber()">اكتب بالحروف</button>
+        <button class="ghost" onclick="randomWordsNumber()">عدد عشوائي</button>
+      </div>
+      <div class="big-number-display" id="w2n-result" style="direction:rtl; font-size:1.4rem;"></div>
+    </div>
+
+    <div class="card">
+      <div class="stage-title"><span class="icon">🎯</span><h2>تدرّب: اختر الكتابة الصحيحة بالحروف</h2></div>
+      <div class="score-box">النقاط: <span id="s2score">0</span> / <span id="s2total">0</span></div>
+      <div id="s2exercises"></div>
+      <div class="controls" style="margin-top:10px;">
+        <button class="ghost" onclick="buildStage2Exercises()">تمارين جديدة</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 3: الكتابة بالأرقام ============ -->
+  <section class="stage" id="s3">
+    <div class="card">
+      <div class="stage-title"><span class="icon">🔢</span><h2>الكتابة بالأرقام</h2></div>
+      <p class="stage-sub">هنا نفعل العكس: نقرأ العدد مكتوبًا بالحروف، ونحوّله إلى رقم.</p>
+      <p id="s3phrase" class="decomp-line" style="direction:rtl;"></p>
+      <div class="controls">
+        <input type="number" id="s3answer" placeholder="اكتب العدد بالأرقام">
+        <button class="action mint" onclick="checkS3()">تحقّق</button>
+        <button class="ghost" onclick="newS3()">سؤال جديد</button>
+      </div>
+      <div class="feedback" id="s3feedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 4: الترتيب ============ -->
+  <section class="stage" id="s4">
+    <div class="card">
+      <div class="stage-title"><span class="icon">📶</span><h2>الترتيب</h2></div>
+      <p class="stage-sub">اسحب الأعداد لترتيبها تصاعديًا (من الأصغر إلى الأكبر). عند الانتهاء اضغط "تحقّق".</p>
+      <ul class="order-list" id="orderList"></ul>
+      <div class="controls" style="margin-top:16px;">
+        <button class="action mint" onclick="checkOrder()">تحقّق من الترتيب</button>
+        <button class="ghost" onclick="buildOrderExercise()">مجموعة أعداد جديدة</button>
+      </div>
+      <div class="feedback" id="orderFeedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 5: الحصر ============ -->
+  <section class="stage" id="s5">
+    <div class="card">
+      <div class="stage-title"><span class="icon">🎯</span><h2>الحصر</h2></div>
+      <p class="stage-sub">حصر عدد يعني إيجاد العدد الطبيعي الذي يسبقه مباشرة، والعدد الطبيعي الذي يليه مباشرة.</p>
+      <div class="decomp-line" id="hasrLine" style="font-size:1.6rem;"></div>
+      <div class="controls">
+        <input type="number" id="hasrBefore" placeholder="العدد السابق" style="width:140px;">
+        <span style="align-self:center; font-weight:900; color:var(--navy);">&lt; ؟ &lt;</span>
+        <input type="number" id="hasrAfter" placeholder="العدد اللاحق" style="width:140px;">
+        <button class="action mint" onclick="checkHasr()">تحقّق</button>
+        <button class="ghost" onclick="newHasr()">عدد جديد</button>
+      </div>
+      <div class="feedback" id="hasrFeedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 6: المقارنة ============ -->
+  <section class="stage" id="s6">
+    <div class="card">
+      <div class="stage-title"><span class="icon">⚖️</span><h2>المقارنة</h2></div>
+      <p class="stage-sub">قارن بين العددين باستخدام إحدى الإشارات: أكبر من &gt;، أصغر من &lt;، يساوي =.</p>
+      <div class="compare-row" id="cmpRow"></div>
+      <div class="controls" style="justify-content:center;">
+        <button class="cmp-btn" data-sym="&gt;" onclick="selectCmp(this)">&gt;</button>
+        <button class="cmp-btn" data-sym="=" onclick="selectCmp(this)">=</button>
+        <button class="cmp-btn" data-sym="&lt;" onclick="selectCmp(this)">&lt;</button>
+      </div>
+      <div class="controls" style="justify-content:center; margin-top:14px;">
+        <button class="action mint" onclick="checkCmp()">تحقّق</button>
+        <button class="ghost" onclick="newCmp()">عددان جديدان</button>
+      </div>
+      <div class="feedback" id="cmpFeedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 7: التفكيك ============ -->
+  <section class="stage" id="s7">
+    <div class="card">
+      <div class="stage-title"><span class="icon">🧩</span><h2>التفكيك بالجمع والضرب</h2></div>
+      <p class="stage-sub">يمكن تفكيك أي عدد إلى مجموع حاصل ضرب كل رقم في قيمة مرتبته. مثال: 3452 = (3 × 1000) + (4 × 100) + (5 × 10) + (2 × 1)</p>
+      <div class="controls">
+        <input type="number" id="decompInput" placeholder="اكتب عددًا" min="0" max="999999">
+        <button class="action orange" onclick="showDecomposition()">فكّك العدد</button>
+        <button class="ghost" onclick="randomDecomp()">عدد عشوائي</button>
+      </div>
+      <div class="decomp-line" id="decompResult" style="direction:ltr;"></div>
+    </div>
+
+    <div class="card">
+      <div class="stage-title"><span class="icon">✏️</span><h2>تدرّب: أكمل التفكيك</h2></div>
+      <p class="stage-sub">العدد: <strong id="decompQNumber" style="color:var(--orange); font-size:1.2rem;"></strong></p>
+      <div class="decomp-line" id="decompQLine" style="direction:ltr;"></div>
+      <div class="controls">
+        <button class="action mint" onclick="checkDecompQuiz()">تحقّق</button>
+        <button class="ghost" onclick="newDecompQuiz()">عدد جديد</button>
+      </div>
+      <div class="feedback" id="decompQFeedback"></div>
+    </div>
+  </section>
+
+  <!-- ============ STAGE 8: تطبيقات ============ -->
+  <section class="stage" id="s8">
+    <div class="card">
+      <div class="stage-title"><span class="icon">🏆</span><h2>تطبيقات شاملة</h2></div>
+      <p class="stage-sub">اختر مستوى الصعوبة وتدرّب على تمارين تجمع كل ما تعلّمته.</p>
+      <div class="diff-tabs">
+        <button class="diff-tab active" data-level="easy" onclick="switchDiff('easy')">سهل</button>
+        <button class="diff-tab" data-level="medium" onclick="switchDiff('medium')">متوسط</button>
+        <button class="diff-tab" data-level="hard" onclick="switchDiff('hard')">صعب</button>
+      </div>
+
+      <div class="diff-panel active" id="panel-easy">
+        <div class="score-box">النقاط: <span id="easyScore">0</span> / <span id="easyTotal">0</span></div>
+        <div id="easyExercises"></div>
+        <div class="controls"><button class="ghost" onclick="buildApplied('easy')">تمارين جديدة</button></div>
+      </div>
+      <div class="diff-panel" id="panel-medium">
+        <div class="score-box">النقاط: <span id="mediumScore">0</span> / <span id="mediumTotal">0</span></div>
+        <div id="mediumExercises"></div>
+        <div class="controls"><button class="ghost" onclick="buildApplied('medium')">تمارين جديدة</button></div>
+      </div>
+      <div class="diff-panel" id="panel-hard">
+        <div class="score-box">النقاط: <span id="hardScore">0</span> / <span id="hardTotal">0</span></div>
+        <div id="hardExercises"></div>
+        <div class="controls"><button class="ghost" onclick="buildApplied('hard')">تمارين جديدة</button></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>درس الأعداد الأقل من 999,999 — صُمّم للتعلّم التفاعلي</footer>
+
+<script>
+/* ============ Utilities ============ */
+function toDigits(n){
+  return String(n);
+}
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+const onesWords = ['','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة'];
+const onesFem   = ['','إحدى','اثنتا','ثلاث','أربع','خمس','ست','سبع','ثمان','تسع'];
+const teensWords = ['عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر','ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
+const tensWords = ['','','عشرون','ثلاثون','أربعون','خمسون','ستون','سبعون','ثمانون','تسعون'];
+const hundredsWords = ['','مائة','مائتان','ثلاثمائة','أربعمائة','خمسمائة','ستمائة','سبعمائة','ثمانمائة','تسعمائة'];
+
+// convert a 0-999 chunk to words
+function chunkToWords(num){
+  if(num === 0) return '';
+  let h = Math.floor(num/100);
+  let rem = num % 100;
+  let parts = [];
+  if(h>0) parts.push(hundredsWords[h]);
+  if(rem>0){
+    if(rem<10){
+      parts.push(onesWords[rem]);
+    } else if(rem<20){
+      parts.push(teensWords[rem-10]);
+    } else {
+      let t = Math.floor(rem/10);
+      let o = rem%10;
+      if(o>0){
+        parts.push(onesWords[o] + ' و' + tensWords[t]);
+      } else {
+        parts.push(tensWords[t]);
+      }
+    }
+  }
+  return parts.join(' و');
+}
+
+// full number (0 - 999999) to Arabic words
+function numberToArabicWords(num){
+  num = Math.floor(num);
+  if(num === 0) return 'صفر';
+  let thousands = Math.floor(num/1000);
+  let units = num % 1000;
+  let result = [];
+
+  if(thousands > 0){
+    if(thousands === 1){
+      result.push('ألف');
+    } else if(thousands === 2){
+      result.push('ألفان');
+    } else if(thousands >=3 && thousands <=10){
+      result.push(chunkToWords(thousands) + ' آلاف');
+    } else {
+      result.push(chunkToWords(thousands) + ' ألفًا');
+    }
+  }
+  if(units > 0){
+    result.push(chunkToWords(units));
+  }
+  return result.join(' و');
+}
+
+/* ============ Navigation ============ */
+document.querySelectorAll('.stage-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.stage').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.stage).classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+/* ============ STAGE 1: place value table ============ */
+function splitPlaceValues(n){
+  n = Math.max(0, Math.min(999999, Math.floor(n)));
+  const s = String(n).padStart(6,'0');
+  return {
+    cmi: s[0], dmi: s[1], umi: s[2],
+    c: s[3], d: s[4], u: s[5]
+  };
+}
+function fillPlaceValueTable(){
+  const val = parseInt(document.getElementById('pvInput').value);
+  if(isNaN(val) || val<0 || val>999999){
+    document.getElementById('pvExplain').textContent = 'الرجاء إدخال عدد صحيح بين 0 و 999,999.';
+    return;
+  }
+  const p = splitPlaceValues(val);
+  document.getElementById('pv-cmi').textContent = toDigits(p.cmi);
+  document.getElementById('pv-dmi').textContent = toDigits(p.dmi);
+  document.getElementById('pv-umi').textContent = toDigits(p.umi);
+  document.getElementById('pv-c').textContent = toDigits(p.c);
+  document.getElementById('pv-d').textContent = toDigits(p.d);
+  document.getElementById('pv-u').textContent = toDigits(p.u);
+  document.getElementById('pvExplain').textContent =
+    `العدد ${toDigits(val)} يتكوّن من فئة آلاف = ${toDigits(p.cmi+p.dmi+p.umi)} وفئة وحدات = ${toDigits(p.c+p.d+p.u)}.`;
+}
+function randomPV(){
+  document.getElementById('pvInput').value = randInt(1,999999);
+  fillPlaceValueTable();
+}
+fillPlaceValueTable();
+
+let pvQuizTarget = 0;
+function newPvQuiz(){
+  pvQuizTarget = randInt(100, 999999);
+  document.getElementById('pvTargetDisplay').textContent = toDigits(pvQuizTarget);
+  ['cmi','dmi','umi','c','d','u'].forEach(k=>document.getElementById('q-'+k).value='');
+  const fb = document.getElementById('pvQuizFeedback');
+  fb.className='feedback'; fb.textContent='';
+}
+function checkPvQuiz(){
+  const p = splitPlaceValues(pvQuizTarget);
+  const vals = {
+    cmi: document.getElementById('q-cmi').value.trim(),
+    dmi: document.getElementById('q-dmi').value.trim(),
+    umi: document.getElementById('q-umi').value.trim(),
+    c: document.getElementById('q-c').value.trim(),
+    d: document.getElementById('q-d').value.trim(),
+    u: document.getElementById('q-u').value.trim(),
+  };
+  let correct = true;
+  for(const k of ['cmi','dmi','umi','c','d','u']){
+    if(vals[k] !== p[k]) correct = false;
+  }
+  const fb = document.getElementById('pvQuizFeedback');
+  fb.classList.add('show');
+  if(correct){
+    fb.className = 'feedback show ok';
+    fb.textContent = 'ممتاز! لقد وزّعت العدد بشكل صحيح في الجدول. ✅';
+  } else {
+    fb.className = 'feedback show bad';
+    fb.textContent = 'هناك خطأ في إحدى الخانات، تحقّق من قيمة كل مرتبة وحاول مجددًا.';
+  }
+}
+newPvQuiz();
+
+/* ============ STAGE 2: words ============ */
+function showWordsFromNumber(){
+  const val = parseInt(document.getElementById('w2n-input').value);
+  const out = document.getElementById('w2n-result');
+  if(isNaN(val) || val<0 || val>999999){
+    out.textContent = 'الرجاء إدخال عدد صحيح بين 0 و 999,999.';
+    return;
+  }
+  out.textContent = `${toDigits(val)} = ${numberToArabicWords(val)}`;
+}
+function randomWordsNumber(){
+  document.getElementById('w2n-input').value = randInt(1,999999);
+  showWordsFromNumber();
+}
+showWordsFromNumber();
+
+let s2State = {score:0, total:0};
+function buildStage2Exercises(){
+  const container = document.getElementById('s2exercises');
+  container.innerHTML = '';
+  s2State = {score:0, total:0};
+  document.getElementById('s2score').textContent = 0;
+  document.getElementById('s2total').textContent = 0;
+
+  for(let i=0;i<4;i++){
+    const correctNum = randInt(100, 999999);
+    const correctWords = numberToArabicWords(correctNum);
+    let distractor1 = randInt(100,999999);
+    while(distractor1 === correctNum) distractor1 = randInt(100,999999);
+    let distractor2 = randInt(100,999999);
+    while(distractor2 === correctNum || distractor2 === distractor1) distractor2 = randInt(100,999999);
+
+    const options = [correctWords, numberToArabicWords(distractor1), numberToArabicWords(distractor2)];
+    for(let j=options.length-1;j>0;j--){
+      const k = Math.floor(Math.random()*(j+1));
+      [options[j],options[k]]=[options[k],options[j]];
+    }
+
+    const div = document.createElement('div');
+    div.className = 'exercise';
+    div.innerHTML = `<div class="ex-q">كيف تُكتب ${toDigits(correctNum)} بالحروف؟</div>
+      <div class="options">
+        ${options.map(o=>`<button class="opt-btn" data-correct="${o===correctWords}">${o}</button>`).join('')}
+      </div>`;
+    container.appendChild(div);
+  }
+
+  container.querySelectorAll('.opt-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const group = btn.parentElement;
+      if(group.dataset.answered) return;
+      group.dataset.answered = "1";
+      s2State.total++;
+      const isCorrect = btn.dataset.correct === 'true';
+      if(isCorrect) s2State.score++;
+      group.querySelectorAll('.opt-btn').forEach(b=>{
+        b.disabled = true;
+        if(b.dataset.correct === 'true') b.classList.add('correct');
+        else if(b===btn) b.classList.add('wrong');
+      });
+      document.getElementById('s2score').textContent = s2State.score;
+      document.getElementById('s2total').textContent = s2State.total;
+    });
+  });
+}
+buildStage2Exercises();
+
+/* ============ STAGE 3: number from words ============ */
+let s3Answer = 0;
+function newS3(){
+  s3Answer = randInt(100,999999);
+  document.getElementById('s3phrase').textContent = numberToArabicWords(s3Answer);
+  document.getElementById('s3answer').value = '';
+  const fb = document.getElementById('s3feedback');
+  fb.className='feedback'; fb.textContent='';
+}
+function checkS3(){
+  const val = parseInt(document.getElementById('s3answer').value);
+  const fb = document.getElementById('s3feedback');
+  fb.classList.add('show');
+  if(val === s3Answer){
+    fb.className='feedback show ok';
+    fb.textContent = 'إجابة صحيحة! أحسنت. ✅';
+  } else {
+    fb.className='feedback show bad';
+    fb.textContent = `إجابة غير صحيحة. العدد الصحيح هو ${toDigits(s3Answer)}. حاول مع سؤال جديد.`;
+  }
+}
+newS3();
+
+/* ============ STAGE 4: ordering ============ */
+let orderNumbers = [];
+function buildOrderExercise(){
+  const set = new Set();
+  while(set.size<5) set.add(randInt(10,999999));
+  orderNumbers = Array.from(set);
+  const shuffled = [...orderNumbers];
+  for(let j=shuffled.length-1;j>0;j--){
+    const k=Math.floor(Math.random()*(j+1));
+    [shuffled[j],shuffled[k]]=[shuffled[k],shuffled[j]];
+  }
+  const list = document.getElementById('orderList');
+  list.innerHTML = '';
+  shuffled.forEach(n=>{
+    const li = document.createElement('li');
+    li.textContent = toDigits(n);
+    li.dataset.value = n;
+    li.draggable = true;
+    list.appendChild(li);
+  });
+  attachDragEvents();
+  const fb = document.getElementById('orderFeedback');
+  fb.className='feedback'; fb.textContent='';
+}
+function attachDragEvents(){
+  const list = document.getElementById('orderList');
+  let dragEl = null;
+  list.querySelectorAll('li').forEach(li=>{
+    li.addEventListener('dragstart', ()=>{ dragEl = li; li.classList.add('dragging'); });
+    li.addEventListener('dragend', ()=>{ li.classList.remove('dragging'); });
+    li.addEventListener('dragover', (e)=>{
+      e.preventDefault();
+      li.classList.add('drag-over');
+    });
+    li.addEventListener('dragleave', ()=> li.classList.remove('drag-over'));
+    li.addEventListener('drop', (e)=>{
+      e.preventDefault();
+      li.classList.remove('drag-over');
+      if(dragEl && dragEl!==li){
+        const items = Array.from(list.children);
+        const dragIdx = items.indexOf(dragEl);
+        const dropIdx = items.indexOf(li);
+        if(dragIdx < dropIdx) li.after(dragEl);
+        else li.before(dragEl);
+      }
+    });
+  });
+}
+function checkOrder(){
+  const items = Array.from(document.getElementById('orderList').children).map(li=>parseInt(li.dataset.value));
+  const sorted = [...items].sort((a,b)=>a-b);
+  const fb = document.getElementById('orderFeedback');
+  fb.classList.add('show');
+  const isCorrect = items.every((v,i)=>v===sorted[i]);
+  if(isCorrect){
+    fb.className='feedback show ok';
+    fb.textContent = 'ترتيب صحيح تمامًا! من الأصغر إلى الأكبر. ✅';
+  } else {
+    fb.className='feedback show bad';
+    fb.textContent = 'الترتيب غير صحيح بعد، أعد السحب والإفلات وحاول مجددًا.';
+  }
+}
+buildOrderExercise();
+
+/* ============ STAGE 5: حصر ============ */
+let hasrTarget = 0;
+function newHasr(){
+  hasrTarget = randInt(1,999998);
+  document.getElementById('hasrLine').innerHTML =
+    `? &nbsp;&lt;&nbsp; <span style="color:var(--orange)">${toDigits(hasrTarget)}</span> &nbsp;&lt;&nbsp; ?`;
+  document.getElementById('hasrLine').style.direction='ltr';
+  document.getElementById('hasrBefore').value='';
+  document.getElementById('hasrAfter').value='';
+  const fb = document.getElementById('hasrFeedback');
+  fb.className='feedback'; fb.textContent='';
+}
+function checkHasr(){
+  const before = parseInt(document.getElementById('hasrBefore').value);
+  const after = parseInt(document.getElementById('hasrAfter').value);
+  const fb = document.getElementById('hasrFeedback');
+  fb.classList.add('show');
+  if(before === hasrTarget-1 && after === hasrTarget+1){
+    fb.className='feedback show ok';
+    fb.textContent = 'صحيح! لقد حصرت العدد بدقة بين سابقه ولاحقه. ✅';
+  } else {
+    fb.className='feedback show bad';
+    fb.textContent = `غير صحيح. العدد السابق هو ${toDigits(hasrTarget-1)} والعدد اللاحق هو ${toDigits(hasrTarget+1)}.`;
+  }
+}
+newHasr();
+
+/* ============ STAGE 6: مقارنة ============ */
+let cmpA=0, cmpB=0, cmpSelected=null;
+function newCmp(){
+  cmpA = randInt(0,999999);
+  cmpB = Math.random()<0.25 ? cmpA : randInt(0,999999);
+  document.getElementById('cmpRow').innerHTML =
+    `<span class="num">${toDigits(cmpA)}</span><span>؟</span><span class="num">${toDigits(cmpB)}</span>`;
+  cmpSelected = null;
+  document.querySelectorAll('.cmp-btn').forEach(b=>b.classList.remove('selected'));
+  const fb = document.getElementById('cmpFeedback');
+  fb.className='feedback'; fb.textContent='';
+}
+function selectCmp(btn){
+  document.querySelectorAll('.cmp-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  cmpSelected = btn.dataset.sym;
+}
+function checkCmp(){
+  const fb = document.getElementById('cmpFeedback');
+  fb.classList.add('show');
+  if(!cmpSelected){
+    fb.className='feedback show bad';
+    fb.textContent = 'اختر إشارة المقارنة أولًا.';
+    return;
+  }
+  let correctSym = cmpA>cmpB ? '&gt;' : (cmpA<cmpB ? '&lt;' : '=');
+  if(cmpSelected === correctSym){
+    fb.className='feedback show ok';
+    fb.textContent = 'صحيح! أحسنت في المقارنة. ✅';
+  } else {
+    fb.className='feedback show bad';
+    const symText = correctSym==='&gt;'?'أكبر من (>)':correctSym==='&lt;'?'أصغر من (<)':'يساوي (=)';
+    fb.textContent = `غير صحيح. العلاقة الصحيحة هي: ${symText}`;
+  }
+}
+newCmp();
+
+/* ============ STAGE 7: تفكيك ============ */
+function decompositionParts(n){
+  const p = splitPlaceValues(n);
+  const places = [
+    {digit: parseInt(p.cmi), value:100000},
+    {digit: parseInt(p.dmi), value:10000},
+    {digit: parseInt(p.umi), value:1000},
+    {digit: parseInt(p.c), value:100},
+    {digit: parseInt(p.d), value:10},
+    {digit: parseInt(p.u), value:1},
+  ];
+  return places.filter(pl=>pl.digit>0);
+}
+function showDecomposition(){
+  const val = parseInt(document.getElementById('decompInput').value);
+  const out = document.getElementById('decompResult');
+  if(isNaN(val) || val<0 || val>999999){
+    out.textContent = 'الرجاء إدخال عدد صحيح بين 0 و 999,999.';
+    return;
+  }
+  const parts = decompositionParts(val);
+  const str = parts.map(p=>`(${toDigits(p.digit)} × ${toDigits(p.value)})`).join(' + ');
+  out.textContent = `${toDigits(val)} = ${str || '0'}`;
+}
+function randomDecomp(){
+  document.getElementById('decompInput').value = randInt(100,999999);
+  showDecomposition();
+}
+showDecomposition();
+
+let decompQTarget = 0, decompQParts = [];
+function newDecompQuiz(){
+  decompQTarget = randInt(1000,999999);
+  decompQParts = decompositionParts(decompQTarget);
+  document.getElementById('decompQNumber').textContent = toDigits(decompQTarget);
+  const line = decompQParts.map((p,i)=>
+    `(<input type="text" data-idx="${i}" data-field="digit" size="2"> × ${toDigits(p.value)})`
+  ).join(' + ');
+  document.getElementById('decompQLine').innerHTML = toDigits(decompQTarget) + ' = ' + line;
+  const fb = document.getElementById('decompQFeedback');
+  fb.className='feedback'; fb.textContent='';
+}
+function checkDecompQuiz(){
+  const inputs = document.querySelectorAll('#decompQLine input');
+  let correct = true;
+  inputs.forEach(inp=>{
+    const idx = parseInt(inp.dataset.idx);
+    if(parseInt(inp.value.trim()) !== decompQParts[idx].digit) correct=false;
+  });
+  const fb = document.getElementById('decompQFeedback');
+  fb.classList.add('show');
+  if(correct){
+    fb.className='feedback show ok';
+    fb.textContent = 'رائع! التفكيك صحيح بالكامل. ✅';
+  } else {
+    fb.className='feedback show bad';
+    fb.textContent = 'إحدى القيم غير صحيحة. راجع رقم كل مرتبة وحاول مجددًا.';
+  }
+}
+newDecompQuiz();
+
+/* ============ STAGE 8: تطبيقات ============ */
+document.querySelectorAll('.diff-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{});
+});
+function switchDiff(level){
+  document.querySelectorAll('.diff-tab').forEach(t=>t.classList.toggle('active', t.dataset.level===level));
+  document.querySelectorAll('.diff-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+level).classList.add('active');
+}
+
+const appliedState = {easy:{score:0,total:0}, medium:{score:0,total:0}, hard:{score:0,total:0}};
+
+function buildApplied(level){
+  appliedState[level] = {score:0,total:0};
+  document.getElementById(level+'Score').textContent = 0;
+  document.getElementById(level+'Total').textContent = 0;
+  const container = document.getElementById(level+'Exercises');
+  container.innerHTML = '';
+
+  const generators = {
+    easy: [genEasyReadNumber, genEasyPlaceDigit, genEasyCompareSimple],
+    medium: [genMediumOrderWord, genMediumHasr, genMediumDecompCheck],
+    hard: [genHardWordToNumberOp, genHardCompareExpr, genHardMissingDigit]
+  };
+  const gens = generators[level];
+  const count = 4;
+  for(let i=0;i<count;i++){
+    const gen = gens[i % gens.length];
+    const ex = gen();
+    renderApplied(container, ex, level);
+  }
+}
+
+function renderApplied(container, ex, level){
+  const div = document.createElement('div');
+  div.className = 'exercise';
+  if(ex.type === 'mcq'){
+    div.innerHTML = `<div class="ex-q">${ex.question}</div>
+      <div class="options">${ex.options.map(o=>`<button class="opt-btn" data-correct="${o===ex.answer}">${o}</button>`).join('')}</div>`;
+    container.appendChild(div);
+    div.querySelectorAll('.opt-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(div.dataset.answered) return;
+        div.dataset.answered = "1";
+        appliedState[level].total++;
+        if(btn.dataset.correct==='true') appliedState[level].score++;
+        div.querySelectorAll('.opt-btn').forEach(b=>{
+          b.disabled=true;
+          if(b.dataset.correct==='true') b.classList.add('correct');
+          else if(b===btn) b.classList.add('wrong');
+        });
+        document.getElementById(level+'Score').textContent = appliedState[level].score;
+        document.getElementById(level+'Total').textContent = appliedState[level].total;
+      });
+    });
+  } else if(ex.type === 'input'){
+    const inputId = 'app-'+Math.random().toString(36).slice(2,9);
+    div.innerHTML = `<div class="ex-q">${ex.question}</div>
+      <div class="controls">
+        <input type="text" id="${inputId}" placeholder="إجابتك">
+        <button class="action mint" data-input="${inputId}">تحقّق</button>
+      </div>
+      <div class="feedback" data-fb></div>`;
+    container.appendChild(div);
+    const btn = div.querySelector('button');
+    btn.addEventListener('click', ()=>{
+      if(div.dataset.answered) return;
+      const userVal = document.getElementById(inputId).value.trim();
+      const fb = div.querySelector('[data-fb]');
+      fb.classList.add('show');
+      div.dataset.answered = "1";
+      appliedState[level].total++;
+      let ok;
+      if(typeof ex.answer === 'number'){
+        ok = parseInt(userVal) === ex.answer;
+      } else {
+        ok = userVal.trim() === String(ex.answer).trim();
+      }
+      if(ok){
+        appliedState[level].score++;
+        fb.className='feedback show ok';
+        fb.textContent = 'إجابة صحيحة! ✅';
+      } else {
+        fb.className='feedback show bad';
+        fb.textContent = `غير صحيحة، الجواب الصحيح: ${typeof ex.answer==='number' ? toDigits(ex.answer) : ex.answer}`;
+      }
+      document.getElementById(level+'Score').textContent = appliedState[level].score;
+      document.getElementById(level+'Total').textContent = appliedState[level].total;
+    });
+  }
+}
+
+/* --- easy generators --- */
+function genEasyReadNumber(){
+  const n = randInt(10, 9999);
+  const correct = numberToArabicWords(n);
+  let d1 = numberToArabicWords(randInt(10,9999));
+  let d2 = numberToArabicWords(randInt(10,9999));
+  const opts = shuffleArr([correct,d1,d2]);
+  return {type:'mcq', question:`اقرأ العدد ${toDigits(n)} — اختر كتابته الصحيحة بالحروف:`, options:opts, answer:correct};
+}
+function genEasyPlaceDigit(){
+  const n = randInt(1000, 99999);
+  const p = splitPlaceValues(n);
+  const places = [['الآحاد',p.u],['العشرات',p.d],['المئات',p.c]];
+  const [name, digit] = places[randInt(0,2)];
+  return {type:'input', question:`في العدد ${toDigits(n)}، ما رقم خانة ${name}؟`, answer: parseInt(digit)};
+}
+function genEasyCompareSimple(){
+  const a = randInt(1,999999), b = randInt(1,999999);
+  const correct = a>b?'أكبر من':(a<b?'أصغر من':'يساوي');
+  const opts = shuffleArr(['أكبر من','أصغر من','يساوي']);
+  return {type:'mcq', question:`العدد ${toDigits(a)} .... العدد ${toDigits(b)}`, options:opts, answer:correct};
+}
+
+/* --- medium generators --- */
+function genMediumOrderWord(){
+  const nums = [randInt(1,999999), randInt(1,999999), randInt(1,999999)];
+  const maxN = Math.max(...nums);
+  const opts = shuffleArr(nums.map(n=>toDigits(n)));
+  return {type:'mcq', question:`أي الأعداد التالية هو الأكبر؟`, options:opts, answer: toDigits(maxN)};
+}
+function genMediumHasr(){
+  const n = randInt(2,999998);
+  return {type:'input', question:`ما العدد الذي يسبق ${toDigits(n)} مباشرة؟`, answer:n-1};
+}
+function genMediumDecompCheck(){
+  const n = randInt(1000,99999);
+  const parts = decompositionParts(n);
+  const missingIdx = randInt(0, parts.length-1);
+  const p = parts[missingIdx];
+  const shown = parts.map((pp,i)=> i===missingIdx? '(? × '+toDigits(pp.value)+')' : `(${toDigits(pp.digit)} × ${toDigits(pp.value)})`).join(' + ');
+  return {type:'input', question:`أكمل: ${toDigits(n)} = ${shown} — ما القيمة الناقصة (الرقم فقط)؟`, answer: p.digit};
+}
+
+/* --- hard generators --- */
+function genHardWordToNumberOp(){
+  const a = randInt(1000,99999);
+  const b = randInt(1,500);
+  return {type:'input', question:`اكتب بالأرقام ناتج: "${numberToArabicWords(a)}" زائد ${toDigits(b)}`, answer: a+b};
+}
+function genHardCompareExpr(){
+  const a = randInt(100,999999);
+  const b1 = randInt(1,500), b2 = randInt(1,500);
+  const left = a;
+  const right = a - b1 + b2;
+  const correct = left>right?'أكبر من':(left<right?'أصغر من':'يساوي');
+  const question = `قارن: ${toDigits(left)} .... (${toDigits(a)} - ${toDigits(b1)} + ${toDigits(b2)})`;
+  const opts = shuffleArr(['أكبر من','أصغر من','يساوي']);
+  return {type:'mcq', question, options:opts, answer:correct};
+}
+function genHardMissingDigit(){
+  const n = randInt(10000,999999);
+  const p = splitPlaceValues(n);
+  const digits = ['cmi','dmi','umi','c','d','u'];
+  const names = {cmi:'مئات الألوف', dmi:'عشرات الألوف', umi:'آحاد الألوف', c:'المئات', d:'العشرات', u:'الآحاد'};
+  const key = digits[randInt(0,5)];
+  return {type:'input', question:`العدد ${toDigits(n)} — ما قيمة رقم خانة ${names[key]} مضروبًا في مرتبته؟ (مثال: إذا كان الرقم في خانة المئات هو 4، فالإجابة 400)`,
+    answer: (()=>{
+      const placeValues = {cmi:100000,dmi:10000,umi:1000,c:100,d:10,u:1};
+      return parseInt(p[key]) * placeValues[key];
+    })()
+  };
+}
+
+function shuffleArr(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+/* init applied panels */
+buildApplied('easy');
+buildApplied('medium');
+buildApplied('hard');
+
+</script>
+</body>
+</html>
